@@ -53,7 +53,13 @@ foreach($loadedSheetNames as $sheetIndex => $loadedSheetName) {
     $writer->save(__DIR__ . "/csv-downloads/".$filename_new.".csv");
 }
 
-header("Location: ".$_SERVER['HTTP_HOST']."/csv-downloads/".$filename_new.".csv");
+$filepath = __DIR__ . "/csv-downloads/".$filename_new.".csv";
+
+header('Content-Type: application/octet-stream');
+header('Content-Disposition: attachment; filename="' . $filename_new . '.csv"');
+header('Content-Length: ' . filesize($filepath)); 
+
+echo readfile($filepath);
 
 
 ?>
